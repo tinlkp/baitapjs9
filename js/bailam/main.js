@@ -5,7 +5,7 @@ getLocalStorage();
 function getEle(id) {
     return document.getElementById(id);
 }
-function layThongTin() {
+function layThongTin(isAdd) {
     var _tknv = getEle("tknv").value;
     var _name = getEle("name").value;
     var _email = getEle("email").value;
@@ -18,9 +18,11 @@ function layThongTin() {
     // validation
     var isValid = true;
     // check tài khoản
-    isValid &= validation.kiemTraRong(_tknv, "tbTKNV", "Vui lòng điền tài khoản !!!")
-        && validation.kiemTraDoDaiKitu(_tknv, "tbTKNV", "Vui lòng điền từ 4 đến 6 kí tự !!!", 4, 6)
-        && validation.kiemTraGiaTri(_tknv, "tbTKNV", "Tài khoản đã tồn tại !!!",dsnv.arr);
+    if (isAdd) {
+        isValid &= validation.kiemTraRong(_tknv, "tbTKNV", "Vui lòng điền tài khoản !!!")
+            && validation.kiemTraDoDaiKitu(_tknv, "tbTKNV", "Vui lòng điền từ 4 đến 6 kí tự !!!", 4, 6)
+            && validation.kiemTraGiaTri(_tknv, "tbTKNV", "Tài khoản đã tồn tại !!!", dsnv.arr)
+    };
     // check name
     isValid &= validation.kiemTraRong(_name, "tbTen", "Vui lòng điền họ và tên !!!")
         && validation.check(_name, "tbTen", "Vui lòng điền đúng họ và tên !!!", "^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$");
@@ -96,7 +98,7 @@ function getLocalStorage() {
 }
 // Thêm nhân viên
 function themNhanVien() {
-    var nhanVien = layThongTin();
+    var nhanVien = layThongTin(isAdd);
     if (nhanVien) {
         dsnv.themNV(nhanVien);
         rendertable(dsnv.arr);
@@ -108,7 +110,7 @@ function themNhanVien() {
 
 // sửa thông tin nhân viên
 function suaNhanVien(tknv) {
-    getEle("btnThemNV").disabled=true;
+    getEle("btnThemNV").disabled = true;
     var nhanVien = dsnv.layThongTin(tknv);
 
     if (nhanVien) {
@@ -126,7 +128,7 @@ function suaNhanVien(tknv) {
 // cập nhật lại thông tin cho nhân viên
 // thêm onclick cho button có id= btnCapnhat
 function capNhatNhanVien() {
-    var nhanVien = layThongTin();
+    var nhanVien = layThongTin(false);
     dsnv.capNhatNV(nhanVien);
     rendertable(dsnv.arr);
     setLocalStorage();
