@@ -18,8 +18,9 @@ function layThongTin() {
     // validation
     var isValid = true;
     // check tài khoản
-    isValid &= validation.kiemTraRong(_tknv, "tbTKNV", "Vui lòng điền số tài khoản !!!")
-        && validation.kiemTraDoDaiKitu(_tknv, "tbTKNV", "Vui lòng điền từ 4 đến 6 kí tự !!!", 4, 6);
+    isValid &= validation.kiemTraRong(_tknv, "tbTKNV", "Vui lòng điền tài khoản !!!")
+        && validation.kiemTraDoDaiKitu(_tknv, "tbTKNV", "Vui lòng điền từ 4 đến 6 kí tự !!!", 4, 6)
+        && validation.kiemTraTrungGiaTri(_tknv, "tbTKNV", "Tài khoản bị trùng !!!",dsnv);
     // check name
     isValid &= validation.kiemTraRong(_name, "tbTen", "Vui lòng điền họ và tên !!!")
         && validation.check(_name, "tbTen", "Vui lòng điền đúng họ và tên !!!", "^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$");
