@@ -5,6 +5,10 @@ getLocalStorage();
 function getEle(id) {
     return document.getElementById(id);
 }
+getEle("btnThem").onclick=function(){
+    getEle("btnThemNV").disabled = false;
+    getEle("tknv").disabled = false;
+}
 function layThongTin(isAdd) {
     var _tknv = getEle("tknv").value;
     var _name = getEle("name").value;
@@ -18,11 +22,12 @@ function layThongTin(isAdd) {
     // validation
     var isValid = true;
     // check tài khoản
-    if (isAdd) {
+    if(isAdd){
         isValid &= validation.kiemTraRong(_tknv, "tbTKNV", "Vui lòng điền tài khoản !!!")
-            && validation.kiemTraDoDaiKitu(_tknv, "tbTKNV", "Vui lòng điền từ 4 đến 6 kí tự !!!", 4, 6)
-            && validation.kiemTraGiaTri(_tknv, "tbTKNV", "Tài khoản đã tồn tại !!!", dsnv.arr)
+        && validation.kiemTraDoDaiKitu(_tknv, "tbTKNV", "Vui lòng điền từ 4 đến 6 kí tự !!!", 4, 6)
+        && validation.kiemTraGiaTri(_tknv, "tbTKNV", "Tài khoản đã tồn tại !!!", dsnv.arr);
     };
+       
     // check name
     isValid &= validation.kiemTraRong(_name, "tbTen", "Vui lòng điền họ và tên !!!")
         && validation.check(_name, "tbTen", "Vui lòng điền đúng họ và tên !!!", "^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$");
@@ -85,7 +90,7 @@ function rendertable(data) {
 }
 function setLocalStorage() {
     var dataString = JSON.stringify(dsnv.arr);
-    localStorage.setItem("dsnv", dataString)
+    localStorage.setItem("dsnv", dataString);
 }
 function getLocalStorage() {
     if (localStorage.getItem("dsnv")) {
@@ -98,7 +103,7 @@ function getLocalStorage() {
 }
 // Thêm nhân viên
 function themNhanVien() {
-    var nhanVien = layThongTin(isAdd);
+    var nhanVien = layThongTin(true);
     if (nhanVien) {
         dsnv.themNV(nhanVien);
         rendertable(dsnv.arr);
@@ -148,4 +153,4 @@ function searchNhanVien() {
     console.log(mangTimKiem);
     rendertable(mangTimKiem);
 }
-getEle("searchName").addEventListener("keyup", searchNhanVien)
+getEle("searchName").addEventListener("keyup", searchNhanVien);

@@ -54,7 +54,7 @@ function Validation() {
         var isExist = false;
         for (var i = 0; i < listNV.length; i++) {
             var nhanVien = listNV[i];
-            if (nhanVien.tknv == value) {
+            if (nhanVien.tknv === value) {
                 isExist = true;
                 break;
             }
