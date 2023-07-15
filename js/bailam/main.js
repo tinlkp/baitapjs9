@@ -8,6 +8,8 @@ function getEle(id) {
 getEle("btnThem").onclick=function(){
     getEle("btnThemNV").disabled = false;
     getEle("tknv").disabled = false;
+    getEle("btnCapNhat").disabled = true;
+
 }
 function layThongTin(isAdd) {
     var _tknv = getEle("tknv").value;
@@ -116,6 +118,7 @@ function themNhanVien() {
 // sửa thông tin nhân viên
 function suaNhanVien(tknv) {
     getEle("btnThemNV").disabled = true;
+    getEle("btnCapNhat").disabled = false;
     var nhanVien = dsnv.layThongTin(tknv);
 
     if (nhanVien) {
@@ -127,6 +130,7 @@ function suaNhanVien(tknv) {
         getEle("datepicker").value = nhanVien.date;
         getEle("luongCB").value = nhanVien.luongCB;
         getEle("chucvu").value = nhanVien.chucVu;
+        getEle("gioLam").value = nhanVien.gioLam;
     }
 }
 
@@ -150,7 +154,6 @@ function xoaNhanVien(tknv) {
 function searchNhanVien() {
     var timNhanVien = getEle("searchName").value;
     var mangTimKiem = dsnv.timKiemNhanVien(timNhanVien);
-    console.log(mangTimKiem);
     rendertable(mangTimKiem);
 }
 getEle("searchName").addEventListener("keyup", searchNhanVien);
